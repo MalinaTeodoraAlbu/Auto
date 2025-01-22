@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Solicitări</title>
+</head>
+<body>
+<h1>Solicitări</h1>
+
+<!-- Formular pentru filtrarea pe baza stării -->
+<form th:action="@{/solicitari}" method="get">
+    <label for="stare">Filtrează după stare:</label>
+    <select id="stare" name="stare">
+        <option value="">Toate</option> <!-- Opțiune pentru a vizualiza toate solicitările -->
+        <option value="SOLICITARE_TRIMISA" th:selected="${stare == 'SOLICITARE_TRIMISA'}">Solicitare Trimisa</option>
+        <option value="SOLICITARE_ACCEPTATA" th:selected="${stare == 'SOLICITARE_ACCEPTATA'}">Solicitare Acceptata</option>
+        <option value="ECHIPA_PLECATA" th:selected="${stare == 'ECHIPA_PLECATA'}">Echipa Plecată</option>
+    </select>
+    <button type="submit">Aplică Filtrul</button>
+</form>
+
+<!-- Tabel cu solicitări -->
+<table>
+    <thead>
+    <tr>
+        <th>Client</th>
+        <th>Locație</th>
+        <th>Stare</th>
+        <th>Acțiuni</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="solicitare : ${solicitari}">
+        <td th:text="${solicitare.client.nume}"></td>
+        <td th:text="${solicitare.locatieSolicitare}"></td>
+        <td th:text="${solicitare.stare}"></td>
+        <td><a th:href="@{/solicitari/{id}(id=${solicitare.id})}">Detalii</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

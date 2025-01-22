@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Adăugare Serviciu</title>
+</head>
+<body>
+<h1>Adăugare Serviciu</h1>
+
+<!-- Formular pentru adăugarea unui serviciu -->
+<form th:action="@{/solicitari/{id}/addServiciu(id=${solicitare.id})}" method="post">
+    <label for="descriere">Descriere Serviciu:</label>
+    <input type="text" id="descriere" name="descriere" required="required" placeholder="Descriere Serviciu">
+
+    <label for="tarif">Tarif Serviciu:</label>
+    <input type="number" id="tarif" name="tarif" required="required" placeholder="Tarif Serviciu" step="0.01">
+
+    <button type="submit">Adaugă Serviciu</button>
+</form>
+
+<!-- Înapoi la solicitare -->
+<a th:href="@{/solicitari/{id}(id=${solicitare.id})}">Înapoi la solicitare</a>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalii Solicitare</title>
+</head>
+<body>
+<h1>Detalii Solicitare</h1>
+<div>
+    <!-- Detalii client -->
+    <h2>Client</h2>
+    <p><strong>Nume:</strong> <span th:text="${solicitare.client.nume}">Nume Client</span></p>
+    <p><strong>Adresă:</strong> <span th:text="${solicitare.client.adresa}">Adresă Client</span></p>
+    <p><strong>Telefon:</strong> <span th:text="${solicitare.client.telefon}">Telefon Client</span></p>
+
+    <!-- Detalii solicitare -->
+    <h2>Solicitare</h2>
+    <p><strong>Locație:</strong> <span th:text="${solicitare.locatieSolicitare}">Locație Solicitare</span></p>
+    <p><strong>Stare:</strong> <span th:text="${solicitare.stare}">Stare Solicitare</span></p>
+
+    <!-- Servicii asociate -->
+    <h2>Servicii Asociate</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Descriere</th>
+            <th>Tarif</th>
+            <th>Sterge</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="serviciu : ${solicitare.listaServicii}">
+            <td th:text="${serviciu.descriere}">Descriere Serviciu</td>
+            <td th:text="${serviciu.tarif}">Tarif Serviciu</td>
+            <td>
+                <form th:action="@{/solicitari/{id}/deleteServiciu(id=${solicitare.id})}" method="post">
+                <button type="submit">X</button>
+            </form></td>
+        </tr>
+        </tbody>
+    </table>
+    <form th:action="@{/solicitari/{id}/addServiciu(id=${solicitare.id})}" method="get">
+        <button type="submit">Adauga serviciu</button>
+    </form>
+
+    <form th:action="@{/solicitari/{id}/delete(id=${solicitare.id})}" method="post">
+        <button type="submit">Șterge solicitare</button>
+    </form>
+    <!-- Buton pentru a schimba starea solicitării -->
+    <h3>Schimbă Starea</h3>
+    <form th:action="@{/solicitari/{id}/update(id=${solicitare.id})}" method="post">
+        <select name="stare" required>
+            <option value="SOLICITARE_TRIMISA" th:selected="${solicitare.stare == 'SOLICITARE_TRIMISA'}">Solicitare Trimisa</option>
+            <option value="SOLICITARE_ACCEPTATA" th:selected="${solicitare.stare == 'SOLICITARE_ACCEPTATA'}">Solicitare Acceptata</option>
+            <option value="ECHIPA_PLECATA" th:selected="${solicitare.stare == 'ECHIPA_PLECATA'}">Echipa Plecată</option>
+        </select>
+        <button type="submit">Actualizează Starea</button>
+    </form>
+
+
+
+    <!-- Buton de întoarcere la lista solicitărilor -->
+    <br>
+    <a href="/solicitari">Înapoi la lista solicitărilor</a>
+</div>
+</body>
+</html>

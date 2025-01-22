@@ -1,5 +1,6 @@
 package exam.demo.Model;
 
+import exam.demo.State.*;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -23,18 +24,27 @@ public class Solicitare{
                     CascadeType.DETACH, CascadeType.REFRESH})
     private List<Serviciu> listaServicii;
 
-    private String stare;
+    @Enumerated(EnumType.STRING)
+    private StareSolicitare stare;
 
-    public Solicitare(int id, Client client, String locatieSolicitare, List<Serviciu> listaServicii, String stare) {
+    public Solicitare() {
+
+    }
+
+    public Solicitare(int id, Client client, String locatieSolicitare, List<Serviciu> listaServicii) {
         this.id = id;
         this.client = client;
         this.locatieSolicitare = locatieSolicitare;
         this.listaServicii = listaServicii;
-        this.stare = stare;
+        this.stare = StareSolicitare.SOLICITARE_TRIMISA;
     }
 
-    public void adaugaServiciu(Serviciu serviciu){
-        this.listaServicii.add(serviciu);
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Client getClient() {
@@ -57,24 +67,16 @@ public class Solicitare{
         return listaServicii;
     }
 
-    public String getStare() {
-        return stare;
+    public void setListaServicii(List<Serviciu> listaServicii) {
+        this.listaServicii = listaServicii;
     }
 
-    public void setStare(String stare) {
+    public void setStare(StareSolicitare stare) {
         this.stare = stare;
     }
 
-    @Override
-    public String toString() {
-        return "Solicitare{" +
-                "id=" + id +
-                ", client=" + client +
-                ", locatieSolicitare='" + locatieSolicitare + '\'' +
-                ", listaServicii=" + listaServicii +
-                ", stare='" + stare + '\'' +
-                '}';
+    public StareSolicitare getStare() {
+        return stare;
     }
 
-    //CRUD Active Record
 }

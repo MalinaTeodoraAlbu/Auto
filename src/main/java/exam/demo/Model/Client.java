@@ -5,14 +5,14 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class Client  {
+@Table(name = "Clienti")
+public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nume;
     private String adresa;
     private String telefon;
-
 
     @OneToMany(mappedBy = "client",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE,
@@ -23,6 +23,7 @@ public class Client  {
     }
 
     public Client(int id, String nume, String adresa, String telefon) {
+        this.id= id;
         this.nume = nume;
         this.adresa = adresa;
         this.telefon = telefon;
@@ -70,7 +71,11 @@ public class Client  {
                 '}';
     }
 
-    public void adaugaClient(Client client){
+    public List<Solicitare> getListaSolicitari() {
+        return listaSolicitari;
+    }
 
+    public void setListaSolicitari(List<Solicitare> listaSolicitari) {
+        this.listaSolicitari = listaSolicitari;
     }
 }

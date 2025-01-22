@@ -3,6 +3,7 @@ package exam.demo.Model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "Servicii")
 public class Serviciu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,6 +50,14 @@ public class Serviciu {
         this.id = id;
     }
 
+    public Solicitare getSolicitare() {
+        return solicitare;
+    }
+
+    public void setSolicitare(Solicitare solicitare) {
+        this.solicitare = solicitare;
+    }
+
     @Override
     public String toString() {
         return "Serviciu{" +
@@ -58,5 +67,4 @@ public class Serviciu {
                 '}';
     }
 
-    //CRUD Active Record
 }
